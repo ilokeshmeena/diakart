@@ -3,6 +3,7 @@ from flask import Flask
 from bs4 import BeautifulSoup
 import requests
 from flask import request
+import re
 
 app=Flask(__name__)
 
@@ -27,7 +28,6 @@ def flipkart():
         'price' : productPrice,
         'images' : productImageLinks
     }
-
     return jsonify(produtDetails)
 
 @app.route('/ketofy')
