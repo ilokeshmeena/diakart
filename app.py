@@ -6,10 +6,34 @@ from flask import request
 
 app=Flask(__name__)
 
+@app.route('/flipkart')
+def flipkart():
+    url = request.args.get('url', default = 'https://www.flipkart.com/ketofy-keto-cookies-200g-yummy-nutritious/p/itmcd59305816064', type = str)
+    req=requests.get(url)
+    content=req.content
+    soup=BeautifulSoup(content,'lxml')
+    produtDetails=[]
+    productName=soup.find('span',class_='B_NuCI').text
+    productPrice=soup.find('div',class_='_30jeq3 _16Jk6d').text
+    productImageLinks=[]
+    productImages=soup.find_all('div',class_='_1AuMiq')
+    for productImage in productImages:
+        productImageLink=productImage.div['style']
+        result = re.search('https://rukminim1.flixcart.com/image/128/128(.*).jpeg', productImageLink)
+        productImageLinks.append('https://rukminim1.flixcart.com/image/512/512'+result.group(1)+'.jpeg')
+
+    produtDetails={
+        'name': productName,
+        'price' : productPrice,
+        'images' : productImageLinks
+    }
+
+    return jsonify(produtDetails)
+
 @app.route('/ketofy')
 def ketofy():
-    link = request.args.get('link', default = 'https://www.ketofy.in/product/buy-dark-keto-chocolate/', type = str)
-    req =requests.get(link)
+    url = request.args.get('url', default = 'https://www.ketofy.in/product/buy-dark-keto-chocolate/', type = str)
+    req =requests.get(url)
     content=req.content
     soup=BeautifulSoup(content,'lxml' )
     productDetails=[]
