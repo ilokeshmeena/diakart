@@ -84,12 +84,14 @@ def ketofy():
             'varientName':varientInGramList[i],
             'varientPrice':varientPricesList[i]
         })
+    productMrp=soup.find('del',class_="strike").text
 
     productDetails.append({
         'name': productName,
         'description' : descriptionList,
         'images' : productImages,
-        'details' : varientDetails
+        'details' : varientDetails,
+        'mrp' : productMrp
     })
     return jsonify(productDetails)
 
