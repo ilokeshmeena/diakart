@@ -35,9 +35,15 @@ def flipkart():
             ratings3=0
             ratings4=0
             ratings5=0
+    try:
+        productPriceMrp=soup.find('div',class_='_3I9_wc _2p6lqe').text
+    except:
+        productPriceMrp=soup.find('div',class_='_30jeq3 _16Jk6d').text
+            
     produtDetails={
         'name': productName,
         'price' : productPrice,
+        'productPriceMrp':productPriceMrp,
         'images' : productImageLinks,
         'ratings1' : ratings1,
         'ratings2' : ratings2,
