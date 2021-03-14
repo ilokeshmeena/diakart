@@ -22,11 +22,21 @@ def flipkart():
         productImageLink=productImage.div['style']
         result = re.search('https://rukminim1.flixcart.com/image/128/128(.*).jpeg', productImageLink)
         productImageLinks.append('https://rukminim1.flixcart.com/image/512/512'+result.group(1)+'.jpeg')
-
+    ratings=soup.find_all("div",class_="_1uJVNT")
+    ratings1=ratings[4].text
+    ratings2=ratings[3].text
+    ratings3=ratings[2].text
+    ratings4=ratings[1].text
+    ratings5=ratings[0].text
     produtDetails={
         'name': productName,
         'price' : productPrice,
-        'images' : productImageLinks
+        'images' : productImageLinks,
+        'ratings1' : ratings1,
+        'ratings2' : ratings2,
+        'ratings3' : ratings3,
+        'ratings4' : ratings4,
+        'ratings5' : ratings5
     }
     return jsonify(produtDetails)
 
